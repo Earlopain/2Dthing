@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Layers;
+
 namespace NESemu
 {
     /// <summary>
@@ -11,10 +13,15 @@ namespace NESemu
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+        LayerManager lm;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.IsFullScreen = true;
+            IsFixedTimeStep = true;
             Content.RootDirectory = "Content";
         }
 
@@ -38,8 +45,15 @@ namespace NESemu
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            lm = new LayerManager(GraphicsDevice);
+            lm.addLayer(0);
+            lm.getLayer(0).addTexture2D(Content.Load<Texture2D>("Layer0"), 0, 0);
+            lm.addLayer(-1);
+            lm.getLayer(-1).addTexture2D(Content.Load<Texture2D>("Layer-1"), 25, 25);
+            lm.addLayer(1);
+            lm.getLayer(1).addTexture2D(Content.Load<Texture2D>("Layer1"), 50, 50);
+            lm.addLayer(2);
+            lm.getLayer(2).addTexture2D(Content.Load<Texture2D>("Layer2"), 75, 75);
             // TODO: use this.Content to load your game content here
         }
 
@@ -74,7 +88,7 @@ namespace NESemu
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            lm.draw();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
