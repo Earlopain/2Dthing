@@ -46,6 +46,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="LayerManager\Layer.cs" />
     <Compile Include="LayerManager\Manager.cs" />
+    <Compile Include="CameraManager\Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
