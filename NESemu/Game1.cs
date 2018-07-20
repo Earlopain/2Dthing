@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using Layers;
+using Camera;
 
 namespace NESemu
 {
@@ -12,8 +13,8 @@ namespace NESemu
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
         LayerManager lm;
+        CameraManager c;
 
         public Game1()
         {
@@ -44,8 +45,8 @@ namespace NESemu
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            lm = new LayerManager(GraphicsDevice);
+            c = new CameraManager(GraphicsDevice, 300, 1);
+            lm = new LayerManager(GraphicsDevice, c);
             lm.addLayer(0);
             lm.getLayer(0).addTexture2D(Content.Load<Texture2D>("Layer0"), 0, 0);
             lm.addLayer(-1);
@@ -75,7 +76,7 @@ namespace NESemu
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -87,8 +88,9 @@ namespace NESemu
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            c.applyKeyState(Keyboard.GetState());
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            lm.draw();
+            lm.draw(c);
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
