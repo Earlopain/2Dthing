@@ -7,11 +7,11 @@ namespace Layers.Internal
 {
     public class Layer
     {
-        public int height { get; }
+        public int Height { get; }
         public List<LayerElement> elementList = new List<LayerElement>();
         public Layer(int height)
         {
-            this.height = height;
+            this.Height = height;
         }
 
         public void addTexture2D(Texture2D texture, int x, int y)
@@ -26,13 +26,13 @@ namespace Layers.Internal
     }
     public class LayerElement
     {
-        public Texture2D texture;
-        public Point position;
+        public Texture2D Texture;
+        public Point Position;
 
         public LayerElement(Texture2D texture, Point p)
         {
-            this.texture = texture;
-            this.position = p;
+            this.Texture = texture;
+            this.Position = p;
         }
     }
 

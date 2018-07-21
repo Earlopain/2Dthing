@@ -6,10 +6,10 @@ namespace Camera
 {
     public class CameraManager
     {
-        public Point visibleScreenSize;
-        public Point screenCenter;
-        public Point offset;
-        public double scalingFactorObjects;
+        public Point VisibleScreenSize { get; }
+        public Point ScreenCenter { get;}
+        public Point Offset { get;}
+        public double ScalingFactorObjects { get; }
 
         /// <summary>
         /// Used in conjucture with Layers.LayerManager to decide what to draw on the screen and where
@@ -19,10 +19,10 @@ namespace Camera
         /// <param name="scalingFactorObjects">Zoom factor</param>
         public CameraManager(GraphicsDevice gd, int screenEdgeDistance, double scalingFactorObjects)
         {
-            offset = new Point(0, 0);
-            visibleScreenSize = new Point(gd.DisplayMode.Width - screenEdgeDistance * 2, gd.DisplayMode.Height - screenEdgeDistance * 2);
-            screenCenter = new Point(gd.DisplayMode.Width / 2, gd.DisplayMode.Height / 2);
-            this.scalingFactorObjects = scalingFactorObjects;
+            this.Offset = Point.Zero;
+            this.VisibleScreenSize = new Point(gd.DisplayMode.Width - screenEdgeDistance * 2, gd.DisplayMode.Height - screenEdgeDistance * 2);
+            this.ScreenCenter = new Point(gd.DisplayMode.Width / 2, gd.DisplayMode.Height / 2);
+            this.ScalingFactorObjects = scalingFactorObjects;
         }
 
         public void applyKeyState(KeyboardState ks)
@@ -35,28 +35,28 @@ namespace Camera
                 switch (key)
                 {
                     case Keys.W:
-                        screenCenter.Y -= movementSpeed;
-                        offset.Y -= movementSpeed;
+                        ScreenCenter.Y -= movementSpeed;
+                        Offset.Y -= movementSpeed;
                         break;
                     case Keys.A:
-                        screenCenter.X -= movementSpeed;
-                        offset.X -= movementSpeed;
+                        ScreenCenter.X -= movementSpeed;
+                        Offset.X -= movementSpeed;
                         break;
                     case Keys.S:
-                        screenCenter.Y += movementSpeed;
-                        offset.Y += movementSpeed;
+                        ScreenCenter.Y += movementSpeed;
+                        Offset.Y += movementSpeed;
                         break;
                     case Keys.D:
-                        screenCenter.X += movementSpeed;
-                        offset.X += movementSpeed;
+                        ScreenCenter.X += movementSpeed;
+                        Offset.X += movementSpeed;
                         break;
                     case Keys.F:
-                        scalingFactorObjects += zoomSpeed;
+                        ScalingFactorObjects += zoomSpeed;
                         break;
                     case Keys.G:
-                        scalingFactorObjects -= zoomSpeed;
-                        if (scalingFactorObjects < 0)
-                            scalingFactorObjects = 0;
+                        ScalingFactorObjects -= zoomSpeed;
+                        if (ScalingFactorObjects < 0)
+                            ScalingFactorObjects = 0;
                         break;
                 }
             }

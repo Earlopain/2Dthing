@@ -9,24 +9,25 @@ namespace Layers
 {
     public class LayerManager
     {
-        private SpriteBatch spriteBatch;
-        private GraphicsDevice gd;
-        private List<Layer> layerList = new List<Layer>();
-        public Vector2 baseScreenSize;
+        private SpriteBatch SpriteBatch { get; }
+        private GraphicsDevice GraphicsDevice { get; }
+        private List<Layer> LayerList { get; }
+        public Vector2 BaseScreenSize { get; }
         /// <summary>
         /// Contains all texture data, drawn top to bottom, only if visible
         /// </summary>
         /// <param name="gd">GraphicsDevice used to determine screensize and create spriteBatch</param>
         public LayerManager(GraphicsDevice gd)
         {
-            this.baseScreenSize = new Vector2(gd.DisplayMode.Width, gd.DisplayMode.Height);
-            this.gd = gd;
-            spriteBatch = new SpriteBatch(gd);
+            this.BaseScreenSize = new Vector2(gd.DisplayMode.Width, gd.DisplayMode.Height);
+            this.GraphicsDevice = gd;
+            this.SpriteBatch = new SpriteBatch(gd);
+            this.LayerList = new List<Layer>();
         }
         private Layer addLayer(int height)
         {
-            layerList.Add(new Layer(height));
-            return layerList[layerList.Count - 1];
+            LayerList.Add(new Layer(height));
+            return LayerList[LayerList.Count - 1];
         }
         /// <summary>
         /// Gets the leveled layer or creates it if not available
@@ -35,7 +36,7 @@ namespace Layers
         /// <returns></returns>
         public Layer getLayer(int height)
         {
-            Layer l = layerList.Find(layer => layer.height == height);
+            Layer l = LayerList.Find(layer => layer.Height == height);
             if (l == null)
             {
                 l = addLayer(height);
@@ -49,27 +50,27 @@ namespace Layers
         public void draw(CameraManager camera)
         {
             //Sorts layers lowest to highest
-            layerList.Sort(delegate (Layer x, Layer y)
+            LayerList.Sort(delegate (Layer x, Layer y)
             {
-                return x.height.CompareTo(y.height);
+                return x.Height.CompareTo(y.Height);
             });
 
             //create transformation matrix for different screen resolutions and apply it at drawing
-            float horScaling = (float)gd.PresentationParameters.BackBufferWidth / baseScreenSize.X * 1;
-            float verScaling = (float)gd.PresentationParameters.BackBufferHeight / baseScreenSize.Y * 1;
+            float horScaling = (float)GraphicsDevice.PresentationParameters.BackBufferWidth / BaseScreenSize.X * 1;
+            float verScaling = (float)GraphicsDevice.PresentationParameters.BackBufferHeight / BaseScreenSize.Y * 1;
             Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
             Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
 
-            foreach (Layer l in layerList)
+            foreach (Layer l in LayerList)
             {
                 List<LayerElement> visibleElements = getVisibleElements(l.elementList, camera);
                 //apply previous transformation
-                spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
+                SpriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
                 foreach (LayerElement le in visibleElements)
                 {   //draw texture at position * zoom relative to the camera center at a size*zoom
-                    spriteBatch.Draw(le.texture, new Rectangle((int)(le.position.X * camera.scalingFactorObjects + camera.screenCenter.X), (int)(le.position.Y * camera.scalingFactorObjects + camera.screenCenter.Y), (int)(le.texture.Width * camera.scalingFactorObjects), (int)(le.texture.Height * camera.scalingFactorObjects)), Color.White);
+                    SpriteBatch.Draw(le.Texture, new Rectangle((int)(le.Position.X * camera.ScalingFactorObjects + camera.ScreenCenter.X), (int)(le.Position.Y * camera.ScalingFactorObjects + camera.ScreenCenter.Y), (int)(le.Texture.Width * camera.ScalingFactorObjects), (int)(le.Texture.Height * camera.ScalingFactorObjects)), Color.White);
                 }
-                spriteBatch.End();
+                SpriteBatch.End();
             }
         }
 
@@ -77,11 +78,11 @@ namespace Layers
         {
             List<LayerElement> result = new List<LayerElement>();
             //the area which is visible by the camera
-            Rectangle drawArea = new Rectangle(camera.offset.X - camera.visibleScreenSize.X / 2, camera.offset.Y - camera.visibleScreenSize.Y / 2, camera.visibleScreenSize.X, camera.visibleScreenSize.Y);
+            Rectangle drawArea = new Rectangle(camera.Offset.X - camera.VisibleScreenSize.X / 2, camera.Offset.Y - camera.VisibleScreenSize.Y / 2, camera.VisibleScreenSize.X, camera.VisibleScreenSize.Y);
             foreach (LayerElement le in list)
             {
                 //no fucking idea, I just tried until it worked, why negative position??
-                Rectangle r = new Rectangle((int)(-(le.position.X * camera.scalingFactorObjects) - le.texture.Width * camera.scalingFactorObjects), (int)(-(le.position.Y * camera.scalingFactorObjects) - le.texture.Height * camera.scalingFactorObjects), (int)(le.texture.Width * camera.scalingFactorObjects), (int)(le.texture.Height * camera.scalingFactorObjects));
+                Rectangle r = new Rectangle((int)(-(le.Position.X * camera.ScalingFactorObjects) - le.Texture.Width * camera.ScalingFactorObjects), (int)(-(le.Position.Y * camera.ScalingFactorObjects) - le.Texture.Height * camera.ScalingFactorObjects), (int)(le.Texture.Width * camera.ScalingFactorObjects), (int)(le.Texture.Height * camera.ScalingFactorObjects));
                 //whatever, if they intersect, it must still be visible
                 if (r.Intersects(drawArea))
                     result.Add(le);

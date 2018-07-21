@@ -12,17 +12,16 @@ namespace NESemu
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        LayerManager lm;
-        CameraManager c;
+        GraphicsDeviceManager Graphics;
+        LayerManager LayerManager;
+        CameraManager Camera;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            graphics.IsFullScreen = true;
-            IsFixedTimeStep = true;
+            this.Graphics = new GraphicsDeviceManager(this);
+            Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            Graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -45,16 +44,24 @@ namespace NESemu
         /// </summary>
         protected override void LoadContent()
         {
-            c = new CameraManager(GraphicsDevice, 300, 1);
-            lm = new LayerManager(GraphicsDevice, c);
-            lm.addLayer(0);
-            lm.getLayer(0).addTexture2D(Content.Load<Texture2D>("Layer0"), 0, 0);
-            lm.addLayer(-1);
-            lm.getLayer(-1).addTexture2D(Content.Load<Texture2D>("Layer-1"), 25, 25);
-            lm.addLayer(1);
-            lm.getLayer(1).addTexture2D(Content.Load<Texture2D>("Layer1"), 50, 50);
-            lm.addLayer(2);
-            lm.getLayer(2).addTexture2D(Content.Load<Texture2D>("Layer2"), 75, 75);
+            this.Camera = new CameraManager(GraphicsDevice, 300, 1);
+            this.LayerManager = new LayerManager(GraphicsDevice);
+            LayerManager.getLayer(0).addTexture2D(Content.Load<Texture2D>("Layer0"), 0, 0);
+            LayerManager.getLayer(-1).addTexture2D(Content.Load<Texture2D>("Layer-1"), 25, 25);
+            LayerManager.getLayer(1).addTexture2D(Content.Load<Texture2D>("Layer1"), 50, 50);
+            LayerManager.getLayer(2).addTexture2D(Content.Load<Texture2D>("Layer2"), 75, 75);
+            LayerManager.getLayer(1).addTexture2D(Content.Load<Texture2D>("Layer1"), 125, 125);
+            LayerManager.getLayer(2).addTexture2D(Content.Load<Texture2D>("Layer2"), 150, 150);
+            LayerManager.getLayer(0).addTexture2D(Content.Load<Texture2D>("Layer0"), 175, 175);
+            LayerManager.getLayer(-1).addTexture2D(Content.Load<Texture2D>("Layer-1"), 200, 200);
+            LayerManager.getLayer(0).addTexture2D(Content.Load<Texture2D>("Layer0"), 250, 250);
+            LayerManager.getLayer(-1).addTexture2D(Content.Load<Texture2D>("Layer-1"), 300, 300);
+            LayerManager.getLayer(1).addTexture2D(Content.Load<Texture2D>("Layer1"), 350, 350);
+            LayerManager.getLayer(2).addTexture2D(Content.Load<Texture2D>("Layer2"), 400, 400);
+            LayerManager.getLayer(1).addTexture2D(Content.Load<Texture2D>("Layer1"), 450, 450);
+            LayerManager.getLayer(2).addTexture2D(Content.Load<Texture2D>("Layer2"), 500, 500);
+            LayerManager.getLayer(0).addTexture2D(Content.Load<Texture2D>("Layer0"), 550, 550);
+            LayerManager.getLayer(-1).addTexture2D(Content.Load<Texture2D>("Layer-1"), 600, 600);
             // TODO: use this.Content to load your game content here
         }
 
@@ -76,7 +83,9 @@ namespace NESemu
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
+
+            Camera.applyKeyState(Keyboard.GetState());
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -88,9 +97,9 @@ namespace NESemu
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            c.applyKeyState(Keyboard.GetState());
+            //System.Console.WriteLine(1 / gameTime.ElapsedGameTime.TotalSeconds);
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            lm.draw(c);
+            LayerManager.draw(Camera);
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
