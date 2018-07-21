@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 using Camera;
 using Layers.Internal;
@@ -12,19 +14,20 @@ namespace Layers
         private SpriteBatch SpriteBatch { get; }
         private GraphicsDevice GraphicsDevice { get; }
         private List<Layer> LayerList { get; }
-        public Vector2 BaseScreenSize { get; }
+        public Point BaseScreenSize { get; }
         /// <summary>
         /// Contains all texture data, drawn top to bottom, only if visible
         /// </summary>
         /// <param name="gd">GraphicsDevice used to determine screensize and create spriteBatch</param>
-        public LayerManager(GraphicsDevice gd)
+        public LayerManager(GraphicsDevice gd, ContentManager content)
         {
-            this.BaseScreenSize = new Vector2(gd.DisplayMode.Width, gd.DisplayMode.Height);
+            this.BaseScreenSize = new Point(gd.DisplayMode.Width, gd.DisplayMode.Height);
             this.GraphicsDevice = gd;
             this.SpriteBatch = new SpriteBatch(gd);
             this.LayerList = new List<Layer>();
+            Level.LevelParser.LoadLevel("test", content);
         }
-        private Layer addLayer(int height)
+        private Layer AddLayer(int height)
         {
             LayerList.Add(new Layer(height));
             return LayerList[LayerList.Count - 1];
@@ -34,20 +37,21 @@ namespace Layers
         /// </summary>
         /// <param name="height"></param>
         /// <returns></returns>
-        public Layer getLayer(int height)
+        public Layer GetLayer(int height)
         {
             Layer l = LayerList.Find(layer => layer.Height == height);
             if (l == null)
             {
-                l = addLayer(height);
+                l = AddLayer(height);
             }
             return l;
         }
+
         /// <summary>
         /// Draws all LayerElements in view
         /// </summary>
         /// <param name="camera">Current view to draw</param>
-        public void draw(CameraManager camera)
+        public void Draw(CameraManager camera)
         {
             //Sorts layers lowest to highest
             LayerList.Sort(delegate (Layer x, Layer y)
@@ -56,39 +60,29 @@ namespace Layers
             });
 
             //create transformation matrix for different screen resolutions and apply it at drawing
-            float horScaling = (float)GraphicsDevice.PresentationParameters.BackBufferWidth / BaseScreenSize.X * 1;
-            float verScaling = (float)GraphicsDevice.PresentationParameters.BackBufferHeight / BaseScreenSize.Y * 1;
+            float horScaling = (float)GraphicsDevice.PresentationParameters.BackBufferWidth / BaseScreenSize.X;
+            float verScaling = (float)GraphicsDevice.PresentationParameters.BackBufferHeight / BaseScreenSize.Y;
             Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
             Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
 
             foreach (Layer l in LayerList)
             {
-                List<LayerElement> visibleElements = getVisibleElements(l.elementList, camera);
                 //apply previous transformation
                 SpriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
-                foreach (LayerElement le in visibleElements)
+                foreach (LayerElement le in l.elementList)
                 {   //draw texture at position * zoom relative to the camera center at a size*zoom
-                    SpriteBatch.Draw(le.Texture, new Rectangle((int)(le.Position.X * camera.ScalingFactorObjects + camera.ScreenCenter.X), (int)(le.Position.Y * camera.ScalingFactorObjects + camera.ScreenCenter.Y), (int)(le.Texture.Width * camera.ScalingFactorObjects), (int)(le.Texture.Height * camera.ScalingFactorObjects)), Color.White);
+                    //The actual position of the element in the world + camera position
+                    Vector2 origPos = new Vector2(le.Position.X + camera.ScreenCenter.X, le.Position.Y + camera.ScreenCenter.Y);
+                    //mapped onto the screen
+                    Vector2 screenPos = new Vector2(Util.Map(origPos.X, BaseScreenSize.X, BaseScreenSize.X / 2 - BaseScreenSize.X / 2 / camera.ZoomFactor, BaseScreenSize.X / 2 / camera.ZoomFactor + BaseScreenSize.X / 2), Util.Map(origPos.Y, BaseScreenSize.Y, BaseScreenSize.Y / 2 - BaseScreenSize.Y / 2 / camera.ZoomFactor, BaseScreenSize.Y / 2 / camera.ZoomFactor + BaseScreenSize.Y / 2));
+                    //area of the screen ocupied by the element
+                    Rectangle drawElement = new Rectangle((int)(screenPos.X), (int)(screenPos.Y), (int)Math.Ceiling(le.Texture.Width / camera.ZoomFactor + 1), (int)Math.Ceiling(le.Texture.Height / camera.ZoomFactor + 1));
+                    //draw only if visible
+                    if (drawElement.Intersects(camera.DrawArea))
+                        SpriteBatch.Draw(le.Texture, drawElement, Color.White);
                 }
                 SpriteBatch.End();
             }
-        }
-
-        private List<LayerElement> getVisibleElements(List<LayerElement> list, CameraManager camera)
-        {
-            List<LayerElement> result = new List<LayerElement>();
-            //the area which is visible by the camera
-            Rectangle drawArea = new Rectangle(camera.Offset.X - camera.VisibleScreenSize.X / 2, camera.Offset.Y - camera.VisibleScreenSize.Y / 2, camera.VisibleScreenSize.X, camera.VisibleScreenSize.Y);
-            foreach (LayerElement le in list)
-            {
-                //no fucking idea, I just tried until it worked, why negative position??
-                Rectangle r = new Rectangle((int)(-(le.Position.X * camera.ScalingFactorObjects) - le.Texture.Width * camera.ScalingFactorObjects), (int)(-(le.Position.Y * camera.ScalingFactorObjects) - le.Texture.Height * camera.ScalingFactorObjects), (int)(le.Texture.Width * camera.ScalingFactorObjects), (int)(le.Texture.Height * camera.ScalingFactorObjects));
-                //whatever, if they intersect, it must still be visible
-                if (r.Intersects(drawArea))
-                    result.Add(le);
-
-            }
-            return result;
         }
     }
 }
