@@ -7,7 +7,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceRoot}/NESemu/bin/DesktopGL/AnyCPU/Debug/NESemu.exe",
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/NESemu/bin/DesktopGL/AnyCPU/Debug/",
             "stopAtEntry": false,
             "externalConsole": false
         },
