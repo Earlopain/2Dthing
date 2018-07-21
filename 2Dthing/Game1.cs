@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 using GameState;
 
-namespace NESemu
+namespace Thing
 {
     /// <summary>
     /// This is the main type for your game.

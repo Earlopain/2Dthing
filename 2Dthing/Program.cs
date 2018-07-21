@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NESemu
+namespace Thing
 {
     /// <summary>
     /// The main class.

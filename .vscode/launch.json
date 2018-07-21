@@ -6,8 +6,8 @@
             "type": "clr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/NESemu/bin/DesktopGL/AnyCPU/Debug/NESemu.exe",
-            "cwd": "${workspaceRoot}/NESemu/bin/DesktopGL/AnyCPU/Debug/",
+            "program": "${workspaceRoot}/2Dthing/bin/DesktopGL/AnyCPU/Debug/2Dthing.exe",
+            "cwd": "${workspaceRoot}/2Dthing/bin/DesktopGL/AnyCPU/Debug/",
             "stopAtEntry": false,
             "externalConsole": false
         },

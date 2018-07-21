@@ -9,8 +9,8 @@
             "command": "move",
             "args": [
                 "/Y",
-                "${workspaceRoot}\\NESemu\\bin\\DesktopGL\\AnyCPU\\Debug\\x64\\*.dll",
-                "${workspaceRoot}\\NESemu\\bin\\DesktopGL\\AnyCPU\\Debug"
+                "${workspaceRoot}\\2Dthing\\bin\\DesktopGL\\AnyCPU\\Debug\\x64\\*.dll",
+                "${workspaceRoot}\\2Dthing\\bin\\DesktopGL\\AnyCPU\\Debug"
             ],
             "dependsOn": [
                 "moveSDL"

@@ -9,8 +9,8 @@
     <ProjectGuid>{56A3EB74-4987-4118-8674-A690A5B0A197}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NESemu</RootNamespace>
-    <AssemblyName>NESemu</AssemblyName>
+    <RootNamespace>2Dthing</RootNamespace>
+    <AssemblyName>2Dthing</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
