@@ -61,3 +61,6 @@
 /processorParam:TextureFormat=Color
 /build:Layer2.png
 
+#begin Levels/test.lvl
+/copy:Levels/test.lvl
+
