@@ -10,6 +10,13 @@ namespace Camera
         public Point screenCenter;
         public Point offset;
         public double scalingFactorObjects;
+
+        /// <summary>
+        /// Used in conjucture with Layers.LayerManager to decide what to draw on the screen and where
+        /// </summary>
+        /// <param name="gd">GraphicsDevice used for determining screensize and center</param>
+        /// <param name="screenEdgeDistance">Offset to real screenedge which will not be used</param>
+        /// <param name="scalingFactorObjects">Zoom factor</param>
         public CameraManager(GraphicsDevice gd, int screenEdgeDistance, double scalingFactorObjects)
         {
             offset = new Point(0, 0);
@@ -20,26 +27,36 @@ namespace Camera
 
         public void applyKeyState(KeyboardState ks)
         {
+            int movementSpeed = 5;
+            double zoomSpeed = 0.1;
             Keys[] keys = ks.GetPressedKeys();
             foreach (Keys key in keys)
             {
                 switch (key)
                 {
                     case Keys.W:
-                        screenCenter.Y -= 5;
-                        offset.Y -= 5;
+                        screenCenter.Y -= movementSpeed;
+                        offset.Y -= movementSpeed;
                         break;
                     case Keys.A:
-                        screenCenter.X -= 5;
-                        offset.X -= 5;
+                        screenCenter.X -= movementSpeed;
+                        offset.X -= movementSpeed;
                         break;
                     case Keys.S:
-                        screenCenter.Y += 5;
-                        offset.Y += 5;
+                        screenCenter.Y += movementSpeed;
+                        offset.Y += movementSpeed;
                         break;
                     case Keys.D:
-                        screenCenter.X += 5;
-                        offset.X += 5;
+                        screenCenter.X += movementSpeed;
+                        offset.X += movementSpeed;
+                        break;
+                    case Keys.F:
+                        scalingFactorObjects += zoomSpeed;
+                        break;
+                    case Keys.G:
+                        scalingFactorObjects -= zoomSpeed;
+                        if (scalingFactorObjects < 0)
+                            scalingFactorObjects = 0;
                         break;
                 }
             }

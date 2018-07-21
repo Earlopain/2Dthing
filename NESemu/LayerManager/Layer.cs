@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
-namespace Layers
+namespace Layers.Internal
 {
     public class Layer
     {
@@ -15,18 +16,23 @@ namespace Layers
 
         public void addTexture2D(Texture2D texture, int x, int y)
         {
-            elementList.Add(new LayerElement(texture, x, y));
+            elementList.Add(new LayerElement(texture, new Point(x, y)));
+        }
+
+        public void addTexture2D(Texture2D texture, Point p)
+        {
+            elementList.Add(new LayerElement(texture, p));
         }
     }
     public class LayerElement
     {
         public Texture2D texture;
-        public int x, y;
-        public LayerElement(Texture2D texture, int x, int y)
+        public Point position;
+
+        public LayerElement(Texture2D texture, Point p)
         {
             this.texture = texture;
-            this.x = x;
-            this.y = y;
+            this.position = p;
         }
     }
 
