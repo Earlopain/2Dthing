@@ -64,11 +64,10 @@ namespace Layers
             float verScaling = (float)GraphicsDevice.PresentationParameters.BackBufferHeight / BaseScreenSize.Y;
             Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
             Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
-
+            SpriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, globalTransformation);
+            //apply previous transformation
             foreach (Layer l in LayerList)
             {
-                //apply previous transformation
-                SpriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
                 foreach (LayerElement le in l.elementList)
                 {   //draw texture at position * zoom relative to the camera center at a size*zoom
                     //The actual position of the element in the world + camera position
@@ -77,12 +76,12 @@ namespace Layers
                     Vector2 screenPos = new Vector2(Util.Map(origPos.X, BaseScreenSize.X, BaseScreenSize.X / 2 - BaseScreenSize.X / 2 / camera.ZoomFactor, BaseScreenSize.X / 2 / camera.ZoomFactor + BaseScreenSize.X / 2), Util.Map(origPos.Y, BaseScreenSize.Y, BaseScreenSize.Y / 2 - BaseScreenSize.Y / 2 / camera.ZoomFactor, BaseScreenSize.Y / 2 / camera.ZoomFactor + BaseScreenSize.Y / 2));
                     //area of the screen ocupied by the element
                     Rectangle drawElement = new Rectangle((int)(screenPos.X), (int)(screenPos.Y), (int)Math.Ceiling(le.Texture.Width / camera.ZoomFactor + 1), (int)Math.Ceiling(le.Texture.Height / camera.ZoomFactor + 1));
-                    //draw only if visible
+                    //draw only if visible, not need to worry about depth as layers are sorted lowest to highest
                     if (drawElement.Intersects(camera.DrawArea))
                         SpriteBatch.Draw(le.Texture, drawElement, Color.White);
                 }
-                SpriteBatch.End();
             }
+            SpriteBatch.End();
         }
     }
 }
