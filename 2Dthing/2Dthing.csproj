@@ -49,11 +49,14 @@
     <Compile Include="LayerManager\AnimatedSprite.cs" />
     <Compile Include="LayerManager\StaticSprite.cs" />
     <Compile Include="LayerManager\ISpriteInferface.cs" />
+    <Compile Include="LayerManager\Util.cs" />
     <Compile Include="CameraManager\Manager.cs" />
     <Compile Include="GameStateManager\Manager.cs" />
     <Compile Include="GameStateManager\Player.cs" />
     <Compile Include="Levels\LevelParser.cs" />
     <Compile Include="Levels\Skeleton.cs" />
+    <Compile Include="Scenes\ISceneInterface.cs" />
+    <Compile Include="Scenes\SceneLoader.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
