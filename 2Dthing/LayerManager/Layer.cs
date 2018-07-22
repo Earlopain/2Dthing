@@ -2,37 +2,33 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Sprites;
 
-namespace Layers.Internal
+namespace Layers
 {
     public class Layer
     {
         public int Depth { get; }
-        public List<LayerElement> elementList = new List<LayerElement>();
+        public List<Sprites.ISpriteInterface> elementList { get; set; }
         public Layer(int depth)
         {
+            this.elementList = new List<ISpriteInterface>();
             this.Depth = depth;
         }
 
-        public void addTexture2D(Texture2D texture, int x, int y)
+        public void AddStaticSprite(Texture2D texture, Point position)
         {
-            elementList.Add(new LayerElement(texture, new Point(x, y)));
+            elementList.Add(new StaticSprite(texture, position));
         }
 
-        public void addTexture2D(Texture2D texture, Point p)
+        public void AddStaticSprite(Texture2D texture, int x, int y)
         {
-            elementList.Add(new LayerElement(texture, p));
+            elementList.Add(new StaticSprite(texture, new Point(x, y)));
         }
-    }
-    public class LayerElement
-    {
-        public Texture2D Texture;
-        public Point Position;
 
-        public LayerElement(Texture2D texture, Point p)
+        public void AddAnimatedSprite(Texture2D texture, Point position, int rows, int columns)
         {
-            this.Texture = texture;
-            this.Position = p;
+            elementList.Add(new AnimatedSprite(texture, position, rows, columns));
         }
     }
 

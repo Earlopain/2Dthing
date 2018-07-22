@@ -46,6 +46,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="LayerManager\Layer.cs" />
     <Compile Include="LayerManager\Manager.cs" />
+    <Compile Include="LayerManager\AnimatedSprite.cs" />
+    <Compile Include="LayerManager\StaticSprite.cs" />
+    <Compile Include="LayerManager\ISpriteInferface.cs" />
     <Compile Include="CameraManager\Manager.cs" />
     <Compile Include="GameStateManager\Manager.cs" />
     <Compile Include="GameStateManager\Player.cs" />

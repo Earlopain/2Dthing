@@ -1,18 +1,21 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+
+using Layers;
 using Camera;
+using Sprites;
 
 namespace GameState
 {
     public class Player
     {
-        public Texture2D Texture;
+        public AnimatedSprite Sprite;
         public Point Position;
         public int Depth;
         public Player(Texture2D texture, int depth, Point pos)
         {
-            this.Texture = texture;
+            this.Sprite = new AnimatedSprite(texture, pos, 1, 8);
             this.Depth = depth;
             this.Position = pos;
         }

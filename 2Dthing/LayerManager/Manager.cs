@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 
 using Camera;
 using GameState;
-using Layers.Internal;
+using Sprites;
 
 namespace Layers
 {
@@ -69,20 +69,20 @@ namespace Layers
             //apply previous transformation
             foreach (Layer l in LayerList)
             {
-                foreach (LayerElement le in l.elementList)
+                foreach (ISpriteInterface le in l.elementList)
                 {   //draw texture at position * zoom relative to the camera center at a size*zoom
                     //The actual position of the element in the world + camera position
 
                     //area of the screen ocupied by the element
-                    Rectangle drawElement = getAreaOnScreen(le.Position, le.Texture, camera);
+                    Rectangle drawElement = getAreaOnScreen(le.Position, le, camera);
                     //draw only if visible, not need to worry about depth as layers are sorted lowest to highest
                     if (drawElement.Intersects(camera.DrawArea))
-                        SpriteBatch.Draw(le.Texture, drawElement, Color.White);
+                        le.Draw(SpriteBatch, drawElement);
                 }
                 if (l.Depth == Player.Depth)
                 {
                     Vector2 screenPos = getScreenPos(Player.Position, camera);
-                    SpriteBatch.Draw(Player.Texture, getAreaOnScreen(Player.Position, Player.Texture, camera), Color.White);
+                    Player.Sprite.Draw(SpriteBatch, getAreaOnScreen(Player.Position, Player.Sprite, camera));
 
                 }
             }
@@ -94,10 +94,10 @@ namespace Layers
             Vector2 origPos = new Vector2(p.X + camera.ScreenCenter.X, p.Y + camera.ScreenCenter.Y);
             return new Vector2(Util.Map(origPos.X, BaseScreenSize.X, BaseScreenSize.X / 2 - BaseScreenSize.X / 2 / camera.ZoomFactor, BaseScreenSize.X / 2 / camera.ZoomFactor + BaseScreenSize.X / 2), Util.Map(origPos.Y, BaseScreenSize.Y, BaseScreenSize.Y / 2 - BaseScreenSize.Y / 2 / camera.ZoomFactor, BaseScreenSize.Y / 2 / camera.ZoomFactor + BaseScreenSize.Y / 2));
         }
-        public Rectangle getAreaOnScreen(Point original, Texture2D texture, CameraManager camera)
+        public Rectangle getAreaOnScreen(Point original, ISpriteInterface sprite, CameraManager camera)
         {
             Vector2 screenPos = getScreenPos(original, camera);
-            return new Rectangle((int)Math.Ceiling(screenPos.X - texture.Width / camera.ZoomFactor), (int)Math.Ceiling(screenPos.Y - texture.Height / camera.ZoomFactor), (int)Math.Ceiling(texture.Width / camera.ZoomFactor), (int)Math.Ceiling(texture.Height / camera.ZoomFactor));
+            return new Rectangle((int)Math.Ceiling(screenPos.X - sprite.Texture.Width / sprite.Columns / camera.ZoomFactor), (int)Math.Ceiling(screenPos.Y - sprite.Texture.Height / sprite.Rows / camera.ZoomFactor), (int)Math.Ceiling(sprite.Texture.Width / sprite.Columns / camera.ZoomFactor), (int)Math.Ceiling(sprite.Texture.Height / sprite.Rows / camera.ZoomFactor));
         }
     }
 }
