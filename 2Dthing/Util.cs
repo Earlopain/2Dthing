@@ -1,9 +1,12 @@
 using System;
 
-public static class Util
+namespace General
 {
-    public static int Map(float value, float toSource, float fromTarget, float toTarget)
+    public static class Util
     {
-        return (int)Math.Ceiling(value / toSource * (toTarget - fromTarget) + fromTarget);
+        public static int Map(float value, float toSource, float fromTarget, float toTarget)
+        {
+            return (int)Math.Ceiling(value / toSource * (toTarget - fromTarget) + fromTarget);
+        }
     }
 }
