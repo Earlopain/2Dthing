@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 using Layers;
+using GameState;
 
 
 namespace Level
@@ -32,7 +33,10 @@ namespace Level
                     }
                     else
                         texture = currentlyLoaded.Find(textureTemp => textureTemp.Name == element.Name);
-                    currentLayer.addTexture2D(texture, element.Position.X, element.Position.Y);
+                    if (element.Type == "Player")
+                        result.Player = new Player(texture, layer.Depth, element.Position);
+                    else
+                        currentLayer.addTexture2D(texture, element.Position.X, element.Position.Y);
                 }
             }
             return result;

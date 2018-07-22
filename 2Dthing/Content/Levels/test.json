@@ -17,6 +17,12 @@
                     "X": 25,
                     "Y": 25,
                     "Name": "Layer1"
+                },
+                {
+                    "X": 100,
+                    "Y": 100,
+                    "Name": "Player",
+                    "Type": "Player"
                 }
             ]
         },

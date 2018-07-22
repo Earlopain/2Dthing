@@ -48,6 +48,7 @@
     <Compile Include="LayerManager\Manager.cs" />
     <Compile Include="CameraManager\Manager.cs" />
     <Compile Include="GameStateManager\Manager.cs" />
+    <Compile Include="GameStateManager\Player.cs" />
     <Compile Include="Levels\LevelParser.cs" />
     <Compile Include="Levels\Skeleton.cs" />
     <Compile Include="Util.cs" />

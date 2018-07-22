@@ -21,10 +21,12 @@ namespace Level
     {
         public Point Position;
         public string Name;
+        public string Type;
 
-        public Element(int x, int y, string name)
+        public Element(int x, int y, string name, string type)
         {
             this.Name = name;
+            this.Type = type;
             this.Position = new Point(x, y);
         }
     }
