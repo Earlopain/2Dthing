@@ -20,7 +20,7 @@ namespace GameState
             this.Position = pos;
         }
 
-        public void ApplyKeyState(KeyboardState keyboardState)
+        public void ApplyUserInput(KeyboardState keyboardState, MouseState mouseState)
         {
             int movementSpeed = 5;
             Keys[] keys = keyboardState.GetPressedKeys();

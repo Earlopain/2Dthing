@@ -18,7 +18,7 @@ namespace GameState
         public GameStateManager(GraphicsDevice graphicsDevice, ContentManager content)
         {
             this.LayerManager = new LayerManager(graphicsDevice, content);
-            this.Camera = new CameraManager(graphicsDevice, 0, 1);
+            this.Camera = new CameraManager(graphicsDevice, 300, 1);
             this.Content = content;
             this.LayerManager = LevelParser.LoadLevel("test", graphicsDevice, content);
             Camera.MoveTo(new Point(-LayerManager.Player.Position.X, -LayerManager.Player.Position.Y));
@@ -30,10 +30,10 @@ namespace GameState
             return;
         }
 
-        public void ApplyKeyState(KeyboardState keyboardState)
+        public void ApplyUserInput(KeyboardState keyboardState, MouseState mouseState)
         {
-            Camera.ApplyKeyState(keyboardState);
-            LayerManager.Player.ApplyKeyState(keyboardState);
+            Camera.ApplyUserInput(keyboardState, mouseState);
+            LayerManager.Player.ApplyUserInput(keyboardState, mouseState);
         }
 
     }

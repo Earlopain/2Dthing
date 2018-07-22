@@ -39,7 +39,7 @@ namespace Camera
             Offset = new Point(p.X, p.Y);
         }
 
-        public void ApplyKeyState(KeyboardState keyboardState)
+        public void ApplyUserInput(KeyboardState keyboardState, MouseState mouseState)
         {
             int movementSpeed = 5;
             float zoomSpeed = 0.03f;
