@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
+using Camera;
+
 namespace Sprites
 {
     public interface ISpriteInterface
@@ -9,6 +11,6 @@ namespace Sprites
         Point Position { get; }
         int Rows { get; }
         int Columns { get; }
-        void Draw(SpriteBatch spriteBatch, Rectangle area);
+        void Draw(SpriteBatch spriteBatch, Rectangle area, CameraManager camera);
     }
 }

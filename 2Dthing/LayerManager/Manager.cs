@@ -77,12 +77,12 @@ namespace Layers
                     Rectangle drawElement = getAreaOnScreen(le.Position, le, camera);
                     //draw only if visible, not need to worry about depth as layers are sorted lowest to highest
                     if (drawElement.Intersects(camera.DrawArea))
-                        le.Draw(SpriteBatch, drawElement);
+                        le.Draw(SpriteBatch, drawElement, camera);
                 }
                 if (l.Depth == Player.Depth)
                 {
                     Vector2 screenPos = getScreenPos(Player.Position, camera);
-                    Player.Sprite.Draw(SpriteBatch, getAreaOnScreen(Player.Position, Player.Sprite, camera));
+                    Player.Sprite.Draw(SpriteBatch, getAreaOnScreen(Player.Position, Player.Sprite, camera), camera);
 
                 }
             }
@@ -92,7 +92,7 @@ namespace Layers
         public Vector2 getScreenPos(Point p, CameraManager camera)
         {
             Vector2 origPos = new Vector2(p.X + camera.ScreenCenter.X, p.Y + camera.ScreenCenter.Y);
-            return new Vector2(Util.Map(origPos.X, BaseScreenSize.X, BaseScreenSize.X / 2 - BaseScreenSize.X / 2 / camera.ZoomFactor, BaseScreenSize.X / 2 / camera.ZoomFactor + BaseScreenSize.X / 2), Util.Map(origPos.Y, BaseScreenSize.Y, BaseScreenSize.Y / 2 - BaseScreenSize.Y / 2 / camera.ZoomFactor, BaseScreenSize.Y / 2 / camera.ZoomFactor + BaseScreenSize.Y / 2));
+            return new Vector2(General.Util.Map(origPos.X, BaseScreenSize.X, BaseScreenSize.X / 2 - BaseScreenSize.X / 2 / camera.ZoomFactor, BaseScreenSize.X / 2 / camera.ZoomFactor + BaseScreenSize.X / 2), General.Util.Map(origPos.Y, BaseScreenSize.Y, BaseScreenSize.Y / 2 - BaseScreenSize.Y / 2 / camera.ZoomFactor, BaseScreenSize.Y / 2 / camera.ZoomFactor + BaseScreenSize.Y / 2));
         }
         public Rectangle getAreaOnScreen(Point original, ISpriteInterface sprite, CameraManager camera)
         {

@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
+using Camera;
+
 namespace Sprites
 {
     public class AnimatedSprite : ISpriteInterface
@@ -23,7 +25,7 @@ namespace Sprites
             this.AnimationSpeed = 0.2f;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Rectangle area)
+        public void Draw(SpriteBatch spriteBatch, Rectangle area, CameraManager camera)
         {
             int width = Texture.Width / Columns;
             int height = Texture.Height / Rows;
