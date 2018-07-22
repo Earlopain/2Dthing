@@ -66,7 +66,7 @@ namespace Thing
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            GameStateManager.ApplyKeyState(Keyboard.GetState());
+            GameStateManager.ApplyUserInput(Keyboard.GetState(), Mouse.GetState());
 
             // TODO: Add your update logic here
 
