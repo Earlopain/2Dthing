@@ -20,7 +20,7 @@ namespace GameState
             this.LayerManager = new LayerManager(graphicsDevice, content);
             this.Camera = new CameraManager(graphicsDevice, 0, 1);
             this.Content = content;
-            LevelParser.MakeTemp(LayerManager, Content);
+            this.LayerManager = LevelParser.LoadLevel("test", graphicsDevice, content);
         }
 
         public void Draw()

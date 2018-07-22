@@ -1,0 +1,44 @@
+{
+    "Layers": [
+        {
+            "Depth": 0,
+            "Elements": [
+                {
+                    "X": 0,
+                    "Y": 0,
+                    "Name": "Layer0"
+                }
+            ]
+        },
+        {
+            "Depth": 1,
+            "Elements": [
+                {
+                    "X": 25,
+                    "Y": 25,
+                    "Name": "Layer1"
+                }
+            ]
+        },
+        {
+            "Depth": 2,
+            "Elements": [
+                {
+                    "X": 50,
+                    "Y": 50,
+                    "Name": "Layer2"
+                }
+            ]
+        },
+        {
+            "Depth": -1,
+            "Elements": [
+                {
+                    "X": 75,
+                    "Y": 75,
+                    "Name": "Layer-1"
+                }
+            ]
+        }
+    ]
+}

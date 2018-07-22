@@ -25,7 +25,6 @@ namespace Layers
             this.GraphicsDevice = gd;
             this.SpriteBatch = new SpriteBatch(gd);
             this.LayerList = new List<Layer>();
-            Level.LevelParser.LoadLevel("test", content);
         }
         private Layer AddLayer(int height)
         {

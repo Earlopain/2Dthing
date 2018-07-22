@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 using Layers;
@@ -12,12 +13,29 @@ namespace Level
     public class LevelParser
     {
 
-        public static LayerManager LoadLevel(string level, ContentManager Content)
+        public static LayerManager LoadLevel(string level, GraphicsDevice graphicsDevice, ContentManager content)
         {
-            string jsonString = System.IO.File.ReadAllText(Content.RootDirectory + "/Levels/" + level + ".lvl");
-            System.IO.File.WriteAllText(Content.RootDirectory + "/Levels/" + level + ".read", jsonString);
-            System.Console.WriteLine(jsonString);
-            return null;
+            string jsonString = System.IO.File.ReadAllText(content.RootDirectory + "/Levels/" + level + ".json");
+            LayerManager result = new LayerManager(graphicsDevice, content);
+            Skeleton json = JsonConvert.DeserializeObject<Skeleton>(jsonString);
+            List<Texture2D> currentlyLoaded = new List<Texture2D>();
+            List<string> textureNames = new List<string>();
+            foreach (Layer layer in json.Layers)
+            {
+                var currentLayer = result.GetLayer(layer.Depth);
+                foreach (Element element in layer.Elements)
+                {
+                    Texture2D texture;
+                    if (!textureNames.Contains(element.Name))
+                    {
+                        texture = content.Load<Texture2D>(element.Name);
+                    }
+                    else
+                        texture = currentlyLoaded.Find(textureTemp => textureTemp.Name == element.Name);
+                    currentLayer.addTexture2D(texture, element.Position.X, element.Position.Y);
+                }
+            }
+            return result;
         }
 
         public static void MakeTemp(LayerManager LayerManager, ContentManager Content)
