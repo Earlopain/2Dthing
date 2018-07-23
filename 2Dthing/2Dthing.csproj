@@ -49,6 +49,7 @@
     <Compile Include="LayerManager\AnimatedSprite.cs" />
     <Compile Include="LayerManager\StaticSprite.cs" />
     <Compile Include="LayerManager\ISpriteInferface.cs" />
+    <Compile Include="LayerManager\Overlap.cs" />
     <Compile Include="LayerManager\Util.cs" />
     <Compile Include="CameraManager\Manager.cs" />
     <Compile Include="GameStateManager\Manager.cs" />
