@@ -25,13 +25,8 @@ namespace Sprites
             //area not fully inside camera view, cut of the rest
             if (!camera.DrawArea.Contains(area))
             {
-                Point offset = Layers.Util.getDrawingOffset(area, camera.DrawArea);
-                Rectangle drawLocation = Layers.Util.getDrawingRectangle(area, camera.DrawArea, offset);
-                Rectangle texturePart = Layers.Util.getTexurePart(offset, area, camera.DrawArea);
-                //determine location, top left, bottom right etc
-                //top left
-                spriteBatch.Draw(Texture, drawLocation, texturePart, Color.White);
-
+                DrawInformation drawInformation = new DrawInformation(area, camera.DrawArea);
+                spriteBatch.Draw(Texture, drawInformation.DrawLocation, drawInformation.TexturePart, Color.White);
                 return;
             }
             spriteBatch.Draw(Texture, area, Color.White);

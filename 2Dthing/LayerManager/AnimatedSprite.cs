@@ -22,7 +22,7 @@ namespace Sprites
             this.Columns = columns;
             this.TotalFrames = rows * columns;
             this.CurrentFrame = 0;
-            this.AnimationSpeed = 0.2f;
+            this.AnimationSpeed = .1f;
         }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle area, CameraManager camera)
@@ -31,8 +31,10 @@ namespace Sprites
             int height = Texture.Height / Rows;
             int row = (int)((float)CurrentFrame / (float)Columns);
             int column = (int)CurrentFrame % Columns;
+            //the full frame to display relative to the texture
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            spriteBatch.Draw(Texture, area, sourceRectangle, Color.White);
+            DrawInformation drawInformation = new DrawInformation(area, camera.DrawArea, sourceRectangle);
+            spriteBatch.Draw(Texture, drawInformation.DrawLocation, drawInformation.TexturePart, Color.White);
             Update();
         }
 
