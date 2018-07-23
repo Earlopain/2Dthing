@@ -30,7 +30,7 @@ namespace Layers
             }
         }
 
-        public static Rectangle getDrawingRectangle(Rectangle drawArea, Rectangle camera, Point offset, LocationOverlap overlap)
+        public static Rectangle getDrawingRectangle(Rectangle drawArea, Rectangle camera)
         {
             return Rectangle.Intersect(drawArea, camera);
         }
@@ -46,7 +46,6 @@ namespace Layers
             Point size = new Point((int)((area.Width - offset.X) * zoomFactor), (int)((area.Height - offset.Y) * zoomFactor));
             switch (overlap)
             {
-
                 case LocationOverlap.TopLeft:
                     result = new Rectangle((int)(offset.X * zoomFactor), (int)(offset.Y * zoomFactor), size.X, size.Y);
                     break;
