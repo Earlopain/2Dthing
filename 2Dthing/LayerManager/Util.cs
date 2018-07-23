@@ -55,42 +55,44 @@ namespace Layers
             }
         }
 
-        public static Rectangle getTexurePart(Rectangle area, Rectangle camera, Point offset, LocationOverlap overlap)
+        public static Rectangle getTexurePart(Rectangle area, Rectangle camera, Point offset, LocationOverlap overlap, float zoomFactor)
         {
-            return getTexurePart(area, camera, offset, overlap, new Rectangle(0, 0, area.Width, area.Height));
+            return getTexurePart(area, camera, offset, overlap, new Rectangle(0, 0, area.Width, area.Height), zoomFactor);
         }
 
-        public static Rectangle getTexurePart(Rectangle area, Rectangle camera, Point offset, LocationOverlap overlap, Rectangle sourceRectangle)
+        public static Rectangle getTexurePart(Rectangle area, Rectangle camera, Point offset, LocationOverlap overlap, Rectangle sourceRectangle, float zoomFactor)
         {
             Rectangle result;
+            Point size = new Point((int)((area.Width - offset.X) * zoomFactor), (int)((area.Height - offset.Y) * zoomFactor));
             switch (overlap)
             {
+
                 case LocationOverlap.TopLeft:
-                    result = new Rectangle(offset.X, offset.Y, area.Width - offset.X, area.Height - offset.Y);
+                    result = new Rectangle((int)(offset.X * zoomFactor), (int)(offset.Y * zoomFactor), size.X, size.Y);
                     break;
                 case LocationOverlap.TopRight:
-                    result = new Rectangle(0, offset.Y, area.Width - offset.X, area.Height - offset.Y);
+                    result = new Rectangle(0, (int)(offset.Y * zoomFactor), size.X, size.Y);
                     break;
                 case LocationOverlap.BottomLeft:
-                    result = new Rectangle(offset.X, 0, area.Width - offset.X, area.Height - offset.Y);
+                    result = new Rectangle((int)(offset.X * zoomFactor), 0, size.X, size.Y);
                     break;
                 case LocationOverlap.BottomRight:
-                    result = new Rectangle(0, 0, area.Width - offset.X, area.Height - offset.Y);
+                    result = new Rectangle(0, 0, size.X, size.Y);
                     break;
                 case LocationOverlap.TopOnly:
-                    result = new Rectangle(0, offset.Y, area.Width, area.Height - offset.Y);
+                    result = new Rectangle(0, (int)(offset.Y * zoomFactor), size.X, size.Y);
                     break;
                 case LocationOverlap.LeftOnly:
-                    result = new Rectangle(offset.X, 0, area.Width - offset.X, area.Height);
+                    result = new Rectangle((int)(offset.X * zoomFactor), 0, size.X, size.Y);
                     break;
                 case LocationOverlap.BottomOnly:
-                    result = new Rectangle(0, 0, area.Width, area.Height - offset.Y);
+                    result = new Rectangle(0, 0, size.X, size.Y);
                     break;
                 case LocationOverlap.RightOnly:
-                    result = new Rectangle(0, 0, area.Width - offset.X, area.Height);
+                    result = new Rectangle(0, 0, size.X, size.Y);
                     break;
                 default:
-                    result = new Rectangle(0, 0, area.Width, area.Height);
+                    result = new Rectangle(0, 0, size.X, size.Y);
                     break;
             }
             //Apply the Texture offset if texture is multiframe

@@ -25,7 +25,7 @@ namespace Sprites
             //area not fully inside camera view, cut of the rest
             if (!camera.DrawArea.Contains(area))
             {
-                DrawInformation drawInformation = new DrawInformation(area, camera.DrawArea);
+                DrawInformation drawInformation = new DrawInformation(area, camera);
                 spriteBatch.Draw(Texture, drawInformation.DrawLocation, drawInformation.TexturePart, Color.White);
                 return;
             }

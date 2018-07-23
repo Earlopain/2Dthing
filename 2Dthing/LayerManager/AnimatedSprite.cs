@@ -33,7 +33,7 @@ namespace Sprites
             int column = (int)CurrentFrame % Columns;
             //the full frame to display relative to the texture
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            DrawInformation drawInformation = new DrawInformation(area, camera.DrawArea, sourceRectangle);
+            DrawInformation drawInformation = new DrawInformation(area, camera, sourceRectangle);
             spriteBatch.Draw(Texture, drawInformation.DrawLocation, drawInformation.TexturePart, Color.White);
             Update();
         }

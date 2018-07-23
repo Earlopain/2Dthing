@@ -19,20 +19,20 @@ namespace Sprites
         Point Offset;
         public Rectangle DrawLocation;
         public Rectangle TexturePart;
-        public DrawInformation(Rectangle area, Rectangle camera)
+        public DrawInformation(Rectangle area, CameraManager camera)
         {
-            Layers.LocationOverlap overlap = Layers.Util.getOverlapLocation(area, camera);
-            this.Offset = Layers.Util.getDrawingOffset(area, camera, overlap);
-            this.DrawLocation = Layers.Util.getDrawingRectangle(area, camera, this.Offset, overlap);
-            this.TexturePart = Layers.Util.getTexurePart(area, camera, this.Offset, overlap);
+            Layers.LocationOverlap overlap = Layers.Util.getOverlapLocation(area, camera.DrawArea);
+            this.Offset = Layers.Util.getDrawingOffset(area, camera.DrawArea, overlap);
+            this.DrawLocation = Layers.Util.getDrawingRectangle(area, camera.DrawArea, this.Offset, overlap);
+            this.TexturePart = Layers.Util.getTexurePart(area, camera.DrawArea, this.Offset, overlap, camera.ZoomFactor);
         }
 
-        public DrawInformation(Rectangle area, Rectangle camera, Rectangle sourceRectangle)
+        public DrawInformation(Rectangle area, CameraManager camera, Rectangle sourceRectangle)
         {
-            Layers.LocationOverlap overlap = Layers.Util.getOverlapLocation(area, camera);
-            this.Offset = Layers.Util.getDrawingOffset(area, camera, overlap);
-            this.DrawLocation = Layers.Util.getDrawingRectangle(area, camera, this.Offset, overlap);
-            this.TexturePart = Layers.Util.getTexurePart(area, camera, this.Offset, overlap, sourceRectangle);
+            Layers.LocationOverlap overlap = Layers.Util.getOverlapLocation(area, camera.DrawArea);
+            this.Offset = Layers.Util.getDrawingOffset(area, camera.DrawArea, overlap);
+            this.DrawLocation = Layers.Util.getDrawingRectangle(area, camera.DrawArea, this.Offset, overlap);
+            this.TexturePart = Layers.Util.getTexurePart(area, camera.DrawArea, this.Offset, overlap, sourceRectangle, camera.ZoomFactor);
         }
     }
 }
