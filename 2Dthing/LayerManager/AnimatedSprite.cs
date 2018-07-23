@@ -27,6 +27,7 @@ namespace Sprites
 
         public void Draw(SpriteBatch spriteBatch, Rectangle area, CameraManager camera)
         {
+            area.Inflate(1,1);
             int width = Texture.Width / Columns;
             int height = Texture.Height / Rows;
             int row = (int)((float)CurrentFrame / (float)Columns);

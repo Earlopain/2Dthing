@@ -34,6 +34,7 @@ namespace Sprites
 
         public void Draw(SpriteBatch spriteBatch, Rectangle area, CameraManager camera)
         {
+            area.Inflate(1,1);
             //area not fully inside camera view, cut of the rest
             if (!camera.DrawArea.Contains(area))
             {
