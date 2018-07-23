@@ -20,6 +20,18 @@ namespace Sprites
             this.Columns = 1;
         }
 
+        public StaticSprite()
+        {
+            this.Texture = new Texture2D(new GraphicsDevice(new GraphicsAdapter(), new GraphicsProfile(), new PresentationParameters()), 1, 1);
+            //make texture 100% blank
+            Color[] texData = new Color[1]; 
+            texData[0] = new Color(0,0,0,0);
+            Texture.SetData<Color>(texData);
+            this.Position = Point.Zero;
+            this.Rows = 1;
+            this.Columns = 1;
+        }
+
         public void Draw(SpriteBatch spriteBatch, Rectangle area, CameraManager camera)
         {
             //area not fully inside camera view, cut of the rest
