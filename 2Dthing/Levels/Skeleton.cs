@@ -22,12 +22,16 @@ namespace Level
         public Point Position;
         public string Name;
         public string Type;
+        public int Rows;
+        public int Columns;
 
-        public Element(int x, int y, string name, string type)
+        public Element(int X, int Y, string Name, string Type, int Rows, int Columns)
         {
-            this.Name = name;
-            this.Type = type;
-            this.Position = new Point(x, y);
+            this.Name = Name;
+            this.Type = Type;
+            this.Position = new Point(X, Y);
+            this.Rows = Rows;
+            this.Columns = Columns;
         }
     }
 }
