@@ -35,6 +35,13 @@ namespace Level
                         texture = currentlyLoaded.Find(textureTemp => textureTemp.Name == element.Name);
                     if (element.Type == "Player")
                         result.Player = new Player(texture, layer.Depth, element.Position);
+                    else if (element.Type == "Animated")
+                    {
+                        if (element.Rows == 0 || element.Columns == 0)
+                            throw new Exception("Animation must have rows and columns which are not 0: " + element.Name + " " + element.Position.ToString());
+                        currentLayer.AddAnimatedSprite(texture, new Point(element.Position.X, element.Position.Y), 1, 2);
+                    }
+
                     else
                         currentLayer.AddStaticSprite(texture, new Point(element.Position.X, element.Position.Y));
                 }
