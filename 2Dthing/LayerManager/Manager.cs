@@ -27,6 +27,7 @@ namespace Layers
             this.GraphicsDevice = gd;
             this.SpriteBatch = new SpriteBatch(gd);
             this.LayerList = new List<Layer>();
+            this.Player = new Player();
         }
         private Layer AddLayer(int depth)
         {

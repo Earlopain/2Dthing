@@ -10,7 +10,7 @@ namespace GameState
 {
     public class Player
     {
-        public AnimatedSprite Sprite;
+        public ISpriteInterface Sprite;
         public Point Position;
         public int Depth;
         public Player(Texture2D texture, int depth, Point pos)
@@ -18,6 +18,13 @@ namespace GameState
             this.Sprite = new AnimatedSprite(texture, pos, 1, 8);
             this.Depth = depth;
             this.Position = pos;
+        }
+
+        public Player()
+        {
+            this.Sprite = new StaticSprite();
+            this.Depth = 0;
+            this.Position = Point.Zero;
         }
 
         public void ApplyUserInput(KeyboardState keyboardState, MouseState mouseState)
