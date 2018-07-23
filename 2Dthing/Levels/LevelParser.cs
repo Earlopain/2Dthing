@@ -13,9 +13,15 @@ namespace Level
 {
     public class LevelParser
     {
-
+        /// <summary>
+        /// Returns a LayerManager containing all needed info needed for it
+        /// </summary>
+        /// <param name="level">String representation of the level name</param>
+        /// <param name="graphicsDevice">Used to draw sprites on the screen</param>
+        /// <param name="content">Used to load sprites from disk</param>
+        /// <returns></returns>
         public static LayerManager LoadLevel(string level, GraphicsDevice graphicsDevice, ContentManager content)
-        {
+        {   //load json from disk
             string jsonString = System.IO.File.ReadAllText(content.RootDirectory + "/Levels/" + level + ".json");
             LayerManager result = new LayerManager(graphicsDevice, content);
             Skeleton json = JsonConvert.DeserializeObject<Skeleton>(jsonString);
@@ -49,76 +55,78 @@ namespace Level
             return result;
         }
 
-        public static void MakeTemp(LayerManager LayerManager, ContentManager Content)
+        public static LayerManager MakeTemp(GraphicsDevice graphicsDevice, ContentManager content)
         {
+            LayerManager result = new LayerManager(graphicsDevice, content);
             //bottom right
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 0, 0);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), 25, 25);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), 50, 50);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), 75, 75);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), 125, 125);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), 150, 150);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 175, 175);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), 200, 200);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 250, 250);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), 300, 300);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), 350, 350);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), 400, 400);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), 450, 450);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), 500, 500);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 550, 550);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), 600, 600);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 0, 0);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), 25, 25);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), 50, 50);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), 75, 75);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), 125, 125);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), 150, 150);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 175, 175);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), 200, 200);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 250, 250);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), 300, 300);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), 350, 350);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), 400, 400);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), 450, 450);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), 500, 500);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 550, 550);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), 600, 600);
             //top right
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 0, 0);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), 25, -25);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), 50, -50);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), 75, -75);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), 125, -125);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), 150, -150);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 175, -175);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), 200, -200);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 250, -250);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), 300, -300);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), 350, -350);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), 400, -400);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), 450, -450);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), 500, -500);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 550, -550);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), 600, -600);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 0, 0);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), 25, -25);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), 50, -50);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), 75, -75);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), 125, -125);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), 150, -150);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 175, -175);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), 200, -200);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 250, -250);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), 300, -300);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), 350, -350);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), 400, -400);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), 450, -450);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), 500, -500);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 550, -550);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), 600, -600);
             //bottom left
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 0, 0);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), -25, 25);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), -50, 50);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), -75, 75);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), -125, 125);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), -150, 150);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), -175, 175);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), -200, 200);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), -250, 250);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), -300, 300);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), -350, 350);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), -400, 400);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), -450, 450);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), -500, 500);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), -550, 550);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), -600, 600);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 0, 0);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), -25, 25);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), -50, 50);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), -75, 75);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), -125, 125);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), -150, 150);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), -175, 175);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), -200, 200);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), -250, 250);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), -300, 300);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), -350, 350);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), -400, 400);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), -450, 450);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), -500, 500);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), -550, 550);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), -600, 600);
             //top left
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), 0, 0);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), -25, -25);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), -50, -50);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), -75, -75);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), -125, -125);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), -150, -150);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), -175, -175);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), -200, -200);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), -250, -250);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), -300, -300);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), -350, -350);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), -400, -400);
-            LayerManager.GetLayer(1).AddStaticSprite(Content.Load<Texture2D>("Layer1"), -450, -450);
-            LayerManager.GetLayer(2).AddStaticSprite(Content.Load<Texture2D>("Layer2"), -500, -500);
-            LayerManager.GetLayer(0).AddStaticSprite(Content.Load<Texture2D>("Layer0"), -550, -550);
-            LayerManager.GetLayer(-1).AddStaticSprite(Content.Load<Texture2D>("Layer-1"), -600, -600);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), 0, 0);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), -25, -25);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), -50, -50);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), -75, -75);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), -125, -125);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), -150, -150);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), -175, -175);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), -200, -200);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), -250, -250);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), -300, -300);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), -350, -350);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), -400, -400);
+            result.GetLayer(1).AddStaticSprite(content.Load<Texture2D>("Layer1"), -450, -450);
+            result.GetLayer(2).AddStaticSprite(content.Load<Texture2D>("Layer2"), -500, -500);
+            result.GetLayer(0).AddStaticSprite(content.Load<Texture2D>("Layer0"), -550, -550);
+            result.GetLayer(-1).AddStaticSprite(content.Load<Texture2D>("Layer-1"), -600, -600);
+            return result;
         }
     }
 }

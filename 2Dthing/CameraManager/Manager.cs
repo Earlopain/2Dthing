@@ -26,13 +26,19 @@ namespace Camera
             this.ZoomFactor = 1f;
             this.DrawArea = new Rectangle((gd.DisplayMode.Width - this.VisibleScreenSize.X) / 2, (gd.DisplayMode.Height - this.VisibleScreenSize.Y) / 2, this.VisibleScreenSize.X, this.VisibleScreenSize.Y);
         }
-
+        /// <summary>
+        /// Moves the camera center by x amount
+        /// </summary>
+        /// <param name="p">Amount to move by</param>
         public void Move(Point p)
         {
             ScreenCenter = new Point(ScreenCenter.X + p.X, ScreenCenter.Y + p.Y);
             Offset = new Point(Offset.X + p.X, Offset.Y + p.Y);
         }
-
+        /// <summary>
+        /// Moves the camera to a fixed position
+        /// </summary>
+        /// <param name="p">Point to move to</param>
         public void MoveTo(Point p)
         {
             ScreenCenter = new Point(ScreenCenter.X - Offset.X + p.X, ScreenCenter.Y - Offset.Y + p.Y);

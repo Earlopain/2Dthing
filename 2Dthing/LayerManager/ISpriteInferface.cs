@@ -13,7 +13,9 @@ namespace Sprites
         int Columns { get; }
         void Draw(SpriteBatch spriteBatch, Rectangle area, CameraManager camera);
     }
-
+    /// <summary>
+    /// Contains everything needed to draw only the visible stuff of a sprite on the screen
+    /// </summary>
     public class DrawInformation
     {
         Point Offset;
@@ -23,7 +25,7 @@ namespace Sprites
         {
             Layers.LocationOverlap overlap = Layers.Util.getOverlapLocation(area, camera.DrawArea);
             this.Offset = Layers.Util.getDrawingOffset(area, camera.DrawArea, overlap);
-            this.DrawLocation = Layers.Util.getDrawingRectangle(area, camera.DrawArea, this.Offset, overlap);
+            this.DrawLocation = Layers.Util.getDrawingRectangle(area, camera.DrawArea);
             this.TexturePart = Layers.Util.getTexurePart(area, camera.DrawArea, this.Offset, overlap, camera.ZoomFactor);
         }
 
@@ -31,7 +33,7 @@ namespace Sprites
         {
             Layers.LocationOverlap overlap = Layers.Util.getOverlapLocation(area, camera.DrawArea);
             this.Offset = Layers.Util.getDrawingOffset(area, camera.DrawArea, overlap);
-            this.DrawLocation = Layers.Util.getDrawingRectangle(area, camera.DrawArea, this.Offset, overlap);
+            this.DrawLocation = Layers.Util.getDrawingRectangle(area, camera.DrawArea);
             this.TexturePart = Layers.Util.getTexurePart(area, camera.DrawArea, this.Offset, overlap, sourceRectangle, camera.ZoomFactor);
         }
     }

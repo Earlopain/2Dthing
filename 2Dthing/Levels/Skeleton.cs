@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace Level
 {
+    /// <summary>
+    /// Intermediate format for the json parser to load levels. 
+    /// </summary>
     public class Skeleton
     {
         public List<Layer> Layers;
