@@ -32,27 +32,7 @@ namespace Layers
 
         public static Rectangle getDrawingRectangle(Rectangle drawArea, Rectangle camera, Point offset, LocationOverlap overlap)
         {
-            switch (overlap)
-            {
-                case LocationOverlap.TopLeft:
-                    return new Rectangle(drawArea.Location.X + offset.X, drawArea.Location.Y + offset.Y, drawArea.Width - offset.X, drawArea.Height - offset.Y);
-                case LocationOverlap.TopRight:
-                    return new Rectangle(drawArea.Location.X, drawArea.Location.Y + offset.Y, drawArea.Width - offset.X, drawArea.Height - offset.Y);
-                case LocationOverlap.BottomLeft:
-                    return new Rectangle(drawArea.Location.X + offset.X, drawArea.Location.Y, drawArea.Width - offset.X, drawArea.Height - offset.Y);
-                case LocationOverlap.BottomRight:
-                    return new Rectangle(drawArea.Location.X, drawArea.Location.Y, drawArea.Width - offset.X, drawArea.Height - offset.Y);
-                case LocationOverlap.TopOnly:
-                    return new Rectangle(drawArea.Location.X, drawArea.Location.Y + offset.Y, drawArea.Width, drawArea.Height - offset.Y);
-                case LocationOverlap.LeftOnly:
-                    return new Rectangle(drawArea.Location.X + offset.X, drawArea.Location.Y, drawArea.Width - offset.X, drawArea.Height);
-                case LocationOverlap.BottomOnly:
-                    return new Rectangle(drawArea.Location.X, drawArea.Location.Y, drawArea.Width, drawArea.Height - offset.Y);
-                case LocationOverlap.RightOnly:
-                    return new Rectangle(drawArea.Location.X, drawArea.Location.Y, drawArea.Width - offset.X, drawArea.Height);
-                default:
-                    return drawArea;
-            }
+            return Rectangle.Intersect(drawArea, camera);
         }
 
         public static Rectangle getTexurePart(Rectangle area, Rectangle camera, Point offset, LocationOverlap overlap, float zoomFactor)
